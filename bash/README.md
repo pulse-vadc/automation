@@ -41,3 +41,19 @@ configuration".
 At this stage, Stingray should be installed and running.  You may need to alter the fault tolerance settings to suit your infrastructure.  This can be achieved using the Command Line Interface (CLI).  Below is a checklist of relevant details to check:
  * Does your infrastructure support ICMP echo requests to the gateway address?
     * **Relevance:** Stingray Traffic Manager will send ICMP echo requests to it’s default gateway in order to ascertain whether its own connectivity to the network is sound.  If it is unable to receive an ICMP echo response from its default gateway, it will not be able to host Traffic IP Address groups.
+    * **Action:** Set the IP address that Stingray checks for its front-end connectivity to **127.0.0.1**.
+    * **Impact(risk)**: Stingray will no longer be sensitive to its gateway failing, and will not initiate a fail-over if this happens.  Another member of the cluster may be using a different gateway and may therefore be able to receive traffic.
+ * Does your infrastructure support IGMP (multicast) traffic to propagate the internet that connects your traffic managers?
+    * **Relevance:** IGMP is the default method of delivery for cluster heartbeats.
+    * **Action:** Change the heartbeat delivery method to unicast.
+    * **Impact:** The traffic manager will send unicast heartbeats instead of mulitcast heartbeats.
+ * Would you like two outages, or just one in the event of a fail-over?
+    * **Relevance:** By default, when a failed cluster member recovers, traffic will automatically fail-back to it.  This behaviour may be unfavourable to you, as it can cause “flip-flopping” in some cases.
+    * **Action:** Disable the auto-failback feature.
+    * **Impact:** When a traffic manager recovers from a failure, it will need to be failed back manually (this may be the desired behaviour).
+ * Do you intend to support the use of Java Extensions?
+    * **Relevance:** The Java Extensions feature is enabled by default, but this assumes that you have a Java Runtime Environment (JRE) available on the machine that you’re installing Stingray to.  If you don’t have a JRE, and aren’t planning on installing one, the traffic manager will protest because it can’t find a java binary.
+    * **Action:** Disable the use of Java Extensions.
+    * **Impact:** Java Extensions will be disabled (this may be the desired behaviour).
+
+
