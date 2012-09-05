@@ -40,4 +40,4 @@ configuration".
 
 At this stage, Stingray should be installed and running.  You may need to alter the fault tolerance settings to suit your infrastructure.  This can be achieved using the Command Line Interface (CLI).  Below is a checklist of relevant details to check:
  * Does your infrastructure support ICMP echo requests to the gateway address?
- * * **Relevance:** Stingray Traffic Manager will send ICMP echo requests to it’s default gateway in order to ascertain whether its own connectivity to the network is sound.  If it is unable to receive an ICMP echo response from its default gateway, it will not be able to host Traffic IP Address groups.
+    * **Relevance:** Stingray Traffic Manager will send ICMP echo requests to it’s default gateway in order to ascertain whether its own connectivity to the network is sound.  If it is unable to receive an ICMP echo response from its default gateway, it will not be able to host Traffic IP Address groups.
